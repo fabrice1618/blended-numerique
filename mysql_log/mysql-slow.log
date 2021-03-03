@@ -929,3 +929,83 @@ SELECT `utilisateur_id`, `type` FROM utilisateurs WHERE `email` = "admin@example
 # Query_time: 0.000623  Lock_time: 0.000397 Rows_sent: 0  Rows_examined: 2
 SET timestamp=1614688550;
 SELECT `utilisateur_id`, `type` FROM utilisateurs WHERE `email` = "" AND `password` = "";
+# Time: 2021-03-03T09:53:56.222560Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2302
+# Query_time: 0.000838  Lock_time: 0.000460 Rows_sent: 0  Rows_examined: 2
+SET timestamp=1614765236;
+SELECT `utilisateur_id`, `type` FROM utilisateurs WHERE `email` = "fabrice1618@gmail.com" AND `password` = "fibonacci1618";
+# Time: 2021-03-03T09:54:34.957996Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2303
+# Query_time: 0.000939  Lock_time: 0.000582 Rows_sent: 1  Rows_examined: 1
+SET timestamp=1614765274;
+SELECT `utilisateur_id`, `type` FROM utilisateurs WHERE `email` = "" OR 1 LIMIT 1;
+# Time: 2021-03-03T09:54:36.299925Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2304
+# Query_time: 0.001236  Lock_time: 0.000860 Rows_sent: 0  Rows_examined: 0
+SET timestamp=1614765276;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T09:58:18.578260Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2306
+# Query_time: 0.004612  Lock_time: 0.001635 Rows_sent: 0  Rows_examined: 0
+SET timestamp=1614765498;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:30:57.211647Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2308
+# Query_time: 0.000849  Lock_time: 0.000460 Rows_sent: 1  Rows_examined: 2
+SET timestamp=1614767457;
+SELECT `utilisateur_id`, `type` FROM utilisateurs WHERE `email` = "admin@example.com" AND `password` = "PHP";
+# Time: 2021-03-03T10:31:03.680718Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2309
+# Query_time: 0.001259  Lock_time: 0.000869 Rows_sent: 0  Rows_examined: 0
+SET timestamp=1614767463;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:31:10.847844Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2310
+# Query_time: 0.000859  Lock_time: 0.000510 Rows_sent: 1  Rows_examined: 1
+SET timestamp=1614767470;
+SELECT `utilisateur_id`, `type` FROM utilisateurs WHERE `email` = "" OR 1 LIMIT 1;
+# Time: 2021-03-03T10:31:11.969726Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2311
+# Query_time: 0.000870  Lock_time: 0.000405 Rows_sent: 0  Rows_examined: 0
+SET timestamp=1614767471;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:31:54.133804Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2312
+# Query_time: 0.000726  Lock_time: 0.000235 Rows_sent: 1  Rows_examined: 2
+SET timestamp=1614767514;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:32:14.356721Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2313
+# Query_time: 0.002674  Lock_time: 0.000318 Rows_sent: 2  Rows_examined: 4
+SET timestamp=1614767534;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:32:20.004806Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2314
+# Query_time: 0.004087  Lock_time: 0.000266 Rows_sent: 3  Rows_examined: 6
+SET timestamp=1614767540;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:32:47.873908Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2315
+# Query_time: 0.000898  Lock_time: 0.000263 Rows_sent: 4  Rows_examined: 8
+SET timestamp=1614767567;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:37:28.717011Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2317
+# Query_time: 0.000853  Lock_time: 0.000502 Rows_sent: 1  Rows_examined: 1
+SET timestamp=1614767848;
+SELECT `utilisateur_id`, `type` FROM utilisateurs WHERE `email` = "" OR 1 LIMIT 1;
+# Time: 2021-03-03T10:38:18.292451Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2318
+# Query_time: 0.001201  Lock_time: 0.000837 Rows_sent: 0  Rows_examined: 0
+SET timestamp=1614767898;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:38:43.552581Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2319
+# Query_time: 0.000720  Lock_time: 0.000230 Rows_sent: 1  Rows_examined: 2
+SET timestamp=1614767923;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
+# Time: 2021-03-03T10:45:17.590542Z
+# User@Host: flopsecurity[flopsecurity] @  [172.25.0.6]  Id:  2321
+# Query_time: 0.001271  Lock_time: 0.000899 Rows_sent: 0  Rows_examined: 0
+SET timestamp=1614768317;
+SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4;
