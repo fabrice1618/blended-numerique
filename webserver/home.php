@@ -1,4 +1,5 @@
 <?php 
+require_once( "config.php" );
 require_once( "database.php" );
 
 session_start();
@@ -8,20 +9,35 @@ if ( ! isset($_SESSION['utilisateur_id']) ) {
   if ( ! isset($_POST['email']) ) {
     header("Location:index.php");
   }
+
+  $sEmail = htmlspecialchars($_POST['email']); 
   $sPassword = $_POST['password'] ?? '';
 
   openDatabase();
-  $sRequete = 'SELECT `utilisateur_id`, `type` FROM utilisateurs WHERE `email` = "'.$_POST['email'].'" AND `password` = "'.$sPassword.'" ';
-  $req = $bdd->prepare( $sRequete );
-  $req->execute();
-  $resultat = $req->fetch();
+  
+  try {
+    $sRequete = ' SELECT `utilisateur_id`, `type` 
+                  FROM utilisateurs 
+                  WHERE `email` = ":email" AND `password` = ":password" ';
+    $stmt = $bdd->prepare( $sRequete );
+
+    $stmt->bindValue(':email', $sEmail, PDO::PARAM_STR);
+    $stmt->bindValue(':password', $sPassword, PDO::PARAM_STR);
+    $bReturn = $stmt->execute();
+
+    $resultat = $stmt->fetch();
+    }
+  catch (PDOException $e) {
+    print $e->getMessage();
+  }
+  
   closeDatabase();
 
   if ( $resultat !== false ) {
       $_SESSION['utilisateur_id'] = $resultat['utilisateur_id'];
   } else {
     unset( $_SESSION['utilisateur_id'] );
-    header("Location:index.php");
+//    header("Location:index.php");
   }
 }
 ?>
@@ -81,5 +97,3 @@ if ( ! isset($_SESSION['utilisateur_id']) ) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
   </body>
 </html>
-
-

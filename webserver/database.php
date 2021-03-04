@@ -1,4 +1,8 @@
 <?php 
+define('MYSQL_HOST', 'dbflop');
+define('MYSQL_DATABASE', 'flopsecurity');
+define('MYSQL_USER', 'flopsecurity');
+define('MYSQL_HOST', 'pwd_flopsecurity');
 
 define( 'DB_TTL', 300 );    // Durée de vide de la base de données 5 min
 define( 'DB_FILETIME', 'db_time.json' );    // Nom du fichier stockant le timestamp de la remise à zéro de la base
@@ -17,7 +21,8 @@ function openDatabase()
 {
     global $bdd;
 
-    $bdd = new PDO('mysql:host=dbflop;dbname=flopsecurity;charset=utf8', 'flopsecurity', 'pwd_flopsecurity');
+    $sPDOConnectString = 'mysql:host='.MYSQL_HOST.';dbname='.MYSQL_DATABASE.';charset=utf8';
+    $bdd = new PDO($sPDOConnectString, MYSQL_USER, MYSQL_HOST);
     $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 }
 

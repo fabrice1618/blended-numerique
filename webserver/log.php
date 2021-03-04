@@ -1,4 +1,5 @@
 <?php 
+require_once( "config.php" );
 require_once( "database.php" );
 
 session_start();
@@ -11,9 +12,18 @@ openDatabase();
 
 if ( isset($_POST['pseudo']) || isset($_POST['commentaire']) ) {
     // Insertion
-    $sRequete = 'INSERT INTO commentaires(`pseudo`, `commentaire`, `date_commentaire`) VALUES("'.$_POST['pseudo'].'", "'.$_POST['commentaire'].'", '.time().')';
-    $req = $bdd->prepare($sRequete);
-    $req->execute();
+    $sPseudo = htmlspecialchars($_POST['pseudo']);
+    $sCommentaire = htmlspecialchars($_POST['commentaire']);
+
+    $sRequete = ' INSERT INTO commentaires(`pseudo`, `commentaire`, `date_commentaire`) 
+                  VALUES(":pseudo", ":commentaire", :heure)';
+    
+    $stmt = $bdd->prepare($sRequete);
+    $stmt->bindValue(':pseudo', $sPseudo, PDO::PARAM_STR);
+    $stmt->bindValue(':commentaire', $sCommentaire, PDO::PARAM_STR);
+    $stmt->bindValue(':heure', time(), PDO::PARAM_INT);
+
+    $stmt->execute();
 }
 
 $stmt = $bdd->query( 'SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4', PDO::FETCH_ASSOC );
