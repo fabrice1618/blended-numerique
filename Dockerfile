@@ -1,6 +1,6 @@
 FROM php:8-apache
 
-COPY servername.conf /etc/apache2/conf-available
+COPY docker_config/servername.conf /etc/apache2/conf-available
 RUN a2enconf servername.conf
 RUN a2enmod rewrite.load
 
@@ -14,6 +14,6 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-COPY environment /etc/environment
-COPY rcS /etc/default/rcS
+COPY docker_config/environment /etc/environment
+COPY docker_config/rcS /etc/default/rcS
 

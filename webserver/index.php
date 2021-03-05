@@ -1,6 +1,7 @@
 <?php 
 require_once( "database.php" );
-require_once( "config.php" );
+
+date_default_timezone_set('Europe/Paris');
 
 session_start();
 
@@ -33,12 +34,6 @@ if ( isset($_SESSION['utilisateur_id']) ) {
       <nav class="navbar navbar-expand-lg navbar-light bg-light my-2">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Flop-Security</a>
-          
-          <ul class="nav justify-content-end">
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/fabrice1618/flop-security" target="_blank">Code source</a>
-            </li>
-          </ul>          
         </div>
       </nav>
       

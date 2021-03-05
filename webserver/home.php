@@ -1,6 +1,7 @@
 <?php 
-require_once( "config.php" );
 require_once( "database.php" );
+
+date_default_timezone_set('Europe/Paris');
 
 session_start();
 
@@ -37,7 +38,7 @@ if ( ! isset($_SESSION['utilisateur_id']) ) {
       $_SESSION['utilisateur_id'] = $resultat['utilisateur_id'];
   } else {
     unset( $_SESSION['utilisateur_id'] );
-//    header("Location:index.php");
+    header("Location:index.php");
   }
 }
 ?>
@@ -68,15 +69,11 @@ if ( ! isset($_SESSION['utilisateur_id']) ) {
               <a class="nav-link" href="log.php">Commentaires</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://github.com/fabrice1618/flop-security" target="_blank">Code source</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/index.php?action=logout">Logout</a>
             </li>
           </ul>          
         </div>
       </nav>
-
       <div class="row mt-5">
         <div class="col"></div>
         <div class="card" style="width: 32rem;"">

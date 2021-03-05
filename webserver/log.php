@@ -1,6 +1,7 @@
 <?php 
-require_once( "config.php" );
 require_once( "database.php" );
+
+date_default_timezone_set('Europe/Paris');
 
 session_start();
 
@@ -82,9 +83,6 @@ function printCommentaires( $aCommentaires )
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="log.php">Commentaires</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/fabrice1618/flop-security" target="_blank">Code source</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/index.php?action=logout">Logout</a>
