@@ -26,14 +26,14 @@ if ( isset($_SESSION['utilisateur_id']) ) {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-    <title>Flop-Security - Login form</title>
+    <title>Top-Security - Login form</title>
   </head>
   <body>
     <div class="container-lg">
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light my-2">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">Flop-Security</a>
+          <a class="navbar-brand" href="/">Top-Security</a>
         </div>
       </nav>
       

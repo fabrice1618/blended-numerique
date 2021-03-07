@@ -1,8 +1,8 @@
 <?php 
-define('MYSQL_HOST', 'dbflop');
-define('MYSQL_DATABASE', 'flopsecurity');
-define('MYSQL_USER', 'flopsecurity');
-define('MYSQL_PASSWORD', 'pwd_flopsecurity');
+define('MYSQL_HOST', 'dbtop');
+define('MYSQL_DATABASE', 'topsecurity');
+define('MYSQL_USER', 'topsecurity');
+define('MYSQL_PASSWORD', 'pwd_topsecurity');
 
 define( 'DB_TTL', 300 );    // Durée de vide de la base de données 5 min
 define( 'DB_FILETIME', 'db_time.json' );    // Nom du fichier stockant le timestamp de la remise à zéro de la base

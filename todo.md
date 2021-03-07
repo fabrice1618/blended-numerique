@@ -8,7 +8,7 @@
 - Ajouter token CSRF
 
 ## TSSR
-- adapter les droits de l'utilisateur MySQL flopsecurity au strict nécessaire
+- adapter les droits de l'utilisateur MySQL topsecurity au strict nécessaire
 - étudier la possibilité d'utiliser fail2ban, un IDS / IPS, un firewall applicatif
 - essayer une solution pentest (burpsuite ou autre)
 - installation d'une VM Ubuntu server 20.04 avec docker pour héberger le serveur web
