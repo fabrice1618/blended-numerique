@@ -1,20 +1,44 @@
 <?php 
-require_once( "database.php" );
+require_once( "utilisateursModel.php" );
 
 date_default_timezone_set('Europe/Paris');
 
 session_start();
 
-$sAction = $_GET['action'] ?? '';
-if ( $sAction == 'logout' ) {
-  // Suppression des variables de session et de la session
-  $_SESSION = array();
-  session_destroy();
+// Recuperation des erreurs 401 qui viennent d'une autre page
+if ( isset($_SESSION['http-err-401']) && $_SESSION['http-err-401'] ) {
+  $bErreur401 = true;  
+} else {
+  $bErreur401 = false;
 }
 
-if ( isset($_SESSION['utilisateur_id']) ) {
-  header("Location:home.php");
+if ( isset($_SESSION['utilisateur_id']) && $_SESSION['utilisateur_id'] > 0 ) {
+  // L'utilisateur est connecté
+  $sAction = $_GET['action'] ?? '';
+  if ( $sAction == 'logout' ) {
+    // Deconnecter utilisateur
+    $_SESSION['utilisateur_id'] = 0;
+  } else {
+    // Deja connecte -> retour home page
+    header("Location:home.php");
+  }
+} else {
+  // L'utilisateur n'est pas connecte
+  if ( isset($_POST['email']) && isset($_POST['password']) ) {
+    // Verification authentification
+    $auth = checkAuth($_POST['email'], $_POST['password']);
+
+    if ( $auth === false ) {
+      $_SESSION['utilisateur_id'] = 0;
+      http_response_code(401);
+      $bErreur401 = true;
+    } else {
+      $_SESSION['utilisateur_id'] = $auth;
+      header("Location:home.php");
+    }
+  }
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,14 +60,25 @@ if ( isset($_SESSION['utilisateur_id']) ) {
           <a class="navbar-brand" href="/">Top-Security</a>
         </div>
       </nav>
-      
+<?php
+  if ( $bErreur401 ) {
+    unset( $_SESSION['http-err-401'] );
+    print('
+      <div class="row mt-5 mb-3">
+        <div class="col"></div>
+        <div class="col-10 alert alert-danger" role="alert">HTTP 401 Unauthorized - Accès restreint</div>
+        <div class="col"></div>        
+      </div>
+    ');
+    }      
+?>
       <div class="row mt-5 mb-3">
         <div class="col"></div>
         <div class="col-6"><h1>Please sign in</h1></div>
         <div class="col"></div>        
       </div>
 
-      <form action="home.php" method="post">
+      <form action="index.php" method="post">
       <div class="row mt-5 mb-3">
         <div class="col"></div>
         <div class="col-6">    
@@ -69,11 +104,6 @@ if ( isset($_SESSION['utilisateur_id']) ) {
         <div class="col"></div>        
       </div>
       </form>
-
-      <footer class="mt-auto text-center">
-        <p>Refresh database :&nbsp;<small><?php echo $sTime2refresh; ?></small></p>
-      </footer>
-
     </div>
     
     <!-- Option 1: Bootstrap Bundle with Popper -->

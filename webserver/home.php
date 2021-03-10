@@ -1,46 +1,15 @@
 <?php 
-require_once( "database.php" );
 
 date_default_timezone_set('Europe/Paris');
 
 session_start();
 
-if ( ! isset($_SESSION['utilisateur_id']) ) {
-
-  if ( ! isset($_POST['email']) ) {
-    header("Location:index.php");
-  }
-
-  $sEmail = htmlspecialchars($_POST['email']); 
-  $sPassword = $_POST['password'] ?? '';
-
-  openDatabase();
-  
-  try {
-    $sRequete = ' SELECT `utilisateur_id`, `type` 
-                  FROM utilisateurs 
-                  WHERE `email` = ":email" AND `password` = ":password" ';
-    $stmt = $bdd->prepare( $sRequete );
-
-    $stmt->bindValue(':email', $sEmail, PDO::PARAM_STR);
-    $stmt->bindValue(':password', $sPassword, PDO::PARAM_STR);
-    $bReturn = $stmt->execute();
-
-    $resultat = $stmt->fetch();
-    }
-  catch (PDOException $e) {
-    print $e->getMessage();
-  }
-  
-  closeDatabase();
-
-  if ( $resultat !== false ) {
-      $_SESSION['utilisateur_id'] = $resultat['utilisateur_id'];
-  } else {
-    unset( $_SESSION['utilisateur_id'] );
-    header("Location:index.php");
-  }
+if ( ! isset($_SESSION['utilisateur_id']) || $_SESSION['utilisateur_id'] == 0 ) {
+  http_response_code(401);
+  $_SESSION['http-err-401'] = true;
+  header("Location:index.php");
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -85,9 +54,6 @@ if ( ! isset($_SESSION['utilisateur_id']) ) {
         </div>
         <div class="col"></div>
 
-        <footer class="mt-auto text-center">
-        <p>Refresh database :&nbsp;<small><?php echo $sTime2refresh; ?></small></p>
-        </footer>
     </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

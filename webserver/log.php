@@ -1,11 +1,13 @@
 <?php 
-require_once( "database.php" );
+require_once( "commentairesModel.php" );
 
 date_default_timezone_set('Europe/Paris');
 
 session_start();
 
-if ( ! isset($_SESSION['utilisateur_id']) ) {
+if ( ! isset($_SESSION['utilisateur_id']) || $_SESSION['utilisateur_id'] == 0 ) {
+  http_response_code(401);
+  $_SESSION['http-err-401'] = true;
   header("Location:index.php");
 }
 
@@ -16,28 +18,10 @@ if ( isset($_POST['pseudo']) || isset($_POST['commentaire']) ) {
     $sPseudo = htmlspecialchars($_POST['pseudo']);
     $sCommentaire = htmlspecialchars($_POST['commentaire']);
 
-    $sRequete = ' INSERT INTO commentaires(`pseudo`, `commentaire`, `date_commentaire`) 
-                  VALUES(":pseudo", ":commentaire", :heure)';
-    
-    $stmt = $bdd->prepare($sRequete);
-    $stmt->bindValue(':pseudo', $sPseudo, PDO::PARAM_STR);
-    $stmt->bindValue(':commentaire', $sCommentaire, PDO::PARAM_STR);
-    $stmt->bindValue(':heure', time(), PDO::PARAM_INT);
-
-    $stmt->execute();
+    ajouterCommentaire( $sPseudo, $sCommentaire );
 }
 
-$stmt = $bdd->query( 'SELECT * FROM commentaires ORDER BY date_commentaire DESC LIMIT 4', PDO::FETCH_ASSOC );
-$resultat = $stmt->fetchAll();
-
-$aCommentaires = array();
-if ( $resultat !== false ) {
-    $aCommentaires = $resultat;
-}
-
-if (count($aCommentaires) == 0 ) {
-  $aCommentaires[] = [ 'pseudo' => 'fabrice1618', 'commentaire' => 'I was here' . "<script>alert('Hello XSS')</script>" , 'date_commentaire' => 1614450176 ];
-}
+$aCommentaires = indexCommentaires();
 
 closeDatabase();
 
@@ -125,9 +109,6 @@ function printCommentaires( $aCommentaires )
 <?php
 printCommentaires( $aCommentaires );
 ?>
-        <footer class="mt-auto text-center">
-        <p>Refresh database :&nbsp;<small><?php echo $sTime2refresh; ?></small></p>
-        </footer>
 
   </div>
 
