@@ -1,0 +1,6 @@
+{
+    "MYSQL_HOST": "top_dbtop",
+    "MYSQL_DATABASE": "topsecurity",
+    "MYSQL_USER": "topsecurity",
+    "MYSQL_PASSWORD": "pwd_topsecurity"
+}

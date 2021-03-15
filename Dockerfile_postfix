@@ -1,0 +1,35 @@
+FROM php:8-cli
+
+RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set-selections && \
+ echo postfix postfix/mynetworks string "127.0.0.0/8" | debconf-set-selections && \
+ echo postfix postfix/mailname string mail.mips.science | debconf-set-selections && \
+ apt-get update -q -q && \
+ apt-get --yes --force-yes install postfix && \
+ apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
+
+RUN \
+ postconf -e mydestination="localhost.localdomain, localhost" && \
+ postconf -e smtpd_banner='$myhostname ESMTP $mail_name' && \
+ postconf -e myhostname="mail.mips.science" && \
+ postconf -e mynetworks="172.0.0.0/8 127.0.0.0/8" && \
+ postconf -e mydestination="localhost.localdomain, localhost" && \
+ postconf -e inet_protocols=ipv4
+
+
+RUN apt-get update && \
+    apt-get install -y libxml2-dev && \
+    docker-php-ext-install xml pdo pdo_mysql
+
+# Configuration PHP Dev/Prod
+# RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+ENV TZ=Europe/Paris
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+COPY docker_config/environment /etc/environment
+COPY docker_config/rcS /etc/default/rcS
+
+COPY docker_config/start_postfix.sh /root
+RUN chmod +x /root/start_postfix.sh
+
+CMD [ "sh", "-c", "/root/start_postfix.sh" ]

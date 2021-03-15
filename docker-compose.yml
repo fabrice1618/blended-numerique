@@ -22,6 +22,17 @@ services:
       - "80"
     restart: always
 
+  topsecurity_mailserver:
+    depends_on:
+      - dbtop
+    container_name: top_mailserver
+    build:
+      context: .
+      dockerfile: Dockerfile_postfix
+    volumes:
+      - ./app:/app
+    restart: always
+
 volumes:
   db_data_top:
 
