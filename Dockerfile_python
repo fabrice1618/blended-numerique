@@ -1,0 +1,8 @@
+FROM python:3.10-rc
+
+WORKDIR /usr/src/app
+
+COPY docker_config/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD [ "python", "./start.py" ]

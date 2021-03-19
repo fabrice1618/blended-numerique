@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  dbtop:
+    image: mysql:5.7
+    container_name: top_dbtop
+    volumes:
+      - db_data_top:/var/lib/mysql
+      - ./mysql_log:/var/log/mysql
+      - ./mysql_conf:/etc/mysql/mysql.conf.d
+      - ./create_database:/root
+    restart: always
+
+  topsecurity_webserver:
+    depends_on:
+      - dbtop
+    container_name: top_webserver
+    build: .
+    volumes:
+      - ./webserver:/var/www/html
+    ports:
+      - "80"
+    restart: always
+
+  topsecurity_mailserver:
+    depends_on:
+      - dbtop
+    container_name: top_mailserver
+    build:
+      context: .
+      dockerfile: Dockerfile_postfix
+    volumes:
+      - ./app:/app
+    restart: always
+
+  topsecurity_python:
+    depends_on:
+      - dbtop
+    container_name: top_python
+    build:
+      context: .
+      dockerfile: Dockerfile_python
+    volumes:
+      - ./python_app:/usr/src/app
+    restart: always
+
+volumes:
+  db_data_top:
+
+networks:
+  default:
+    external:
+      name: reverseproxy
+
