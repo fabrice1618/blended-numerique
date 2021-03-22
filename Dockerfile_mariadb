@@ -1,0 +1,8 @@
+FROM mariadb:latest
+
+# Copie des scripts de create et drop BDD
+COPY create_database/createdb.sql /root
+COPY create_database/dropdb.sql /root
+
+# Copie de la configuration
+COPY docker_config/99-mariadb-custom.cnf /etc/mysql/mariadb.conf.d

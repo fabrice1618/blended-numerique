@@ -1,21 +1,16 @@
 <?php
-require_once("view.php");
+require_once("view/view.php");
 
-function lostpasswordView($aAlert)
+function lostpasswordView()
 {
+  global $aMenu;
+
     $sReturn = startHtml();
 
     $sReturn .= headHtml( 'lost password form' );
 
     $sReturn .= startBody();
-    $sReturn .= navbar( [
-        ['active' => false, 'href' => 'register.php', 'text' => 'Inscription'],
-        ['active' => false, 'href' => 'index.php', 'text' => 'Connexion']
-        ]);
-
-    if ( ! is_null( $aAlert ) ) {
-        alert($aAlert['color'], $aAlert['text']);
-    }
+    $sReturn .= navbar( $aMenu );
 
     $sReturn .= getLostpasswordContent();
 
@@ -37,7 +32,7 @@ function getLostpasswordContent()
       <div class="col"></div>
     </div>
 
-    <form action="lostpassword.php" method="post">
+    <form action="/login/lostpassword" method="post">
       
       <div class="row mt-5 mb-3">
         <div class="col"></div>

@@ -1,21 +1,16 @@
 <?php
-require_once("view.php");
+require_once("view/view.php");
 
-function registerView($aAlert)
+function registerView()
 {
+  global $aMenu;
+
     $sReturn = startHtml();
 
     $sReturn .= headHtml( 'register form' );
 
     $sReturn .= startBody();
-    $sReturn .= navbar( [
-        ['active' => false, 'href' => 'index.php', 'text' => 'Connexion'],
-        ['active' => false, 'href' => 'lostpassword.php', 'text' => 'Mot de passe perdu']
-        ]);
-
-    if ( ! is_null( $aAlert ) ) {
-        alert($aAlert['color'], $aAlert['text']);
-    }
+    $sReturn .= navbar( $aMenu );
 
     $sReturn .= getRegisterContent();
 
@@ -32,19 +27,17 @@ function getRegisterContent()
     <div class="row mt-5 mb-3">
       <div class="col"></div>
       <div class="col-6">
-        <h1>Enregistrement</h1>
+        <h1>Inscription</h1>
       </div>
       <div class="col"></div>
     </div>
 
-    <form action="register.php" method="post">
+    <form action="/login/register" method="post">
       <div class="row mt-5 mb-3">
         <div class="col"></div>
         <div class="col-6">
           <div class="input-group">
-            <span class="input-group-text" id="basic-addon1">Prenom</span>
-            <input type="text" name="prenom" class="form-control" placeholder="Prenom" aria-label="prenom"
-              aria-describedby="basic-addon1">
+            <input type="text" name="prenom" class="form-control" placeholder="Prenom">
           </div>
         </div>
         <div class="col"></div>
@@ -54,9 +47,7 @@ function getRegisterContent()
         <div class="col"></div>
         <div class="col-6">
           <div class="input-group">
-            <span class="input-group-text" id="basic-addon1">Nom</span>
-            <input type="text" name="nom" class="form-control" placeholder="Nom" aria-label="nom"
-              aria-describedby="basic-addon1">
+            <input type="text" name="nom" class="form-control" placeholder="Nom">
           </div>
         </div>
         <div class="col"></div>

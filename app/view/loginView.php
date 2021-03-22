@@ -1,20 +1,28 @@
 <?php
-require_once("view.php");
+require_once("view/view.php");
 
-function loginView($aAlert)
+function loginView()
 {
+  global $aMenu;
+
     $sReturn = startHtml();
 
     $sReturn .= headHtml( 'login form' );
 
     $sReturn .= startBody();
-    $sReturn .= navbar( [
-        ['active' => false, 'href' => 'register.php', 'text' => 'Inscription'],
-        ['active' => false, 'href' => 'lostpassword.php', 'text' => 'Mot de passe perdu']
-        ]);
+    $sReturn .= navbar( $aMenu );
 
-    if ( ! is_null( $aAlert ) ) {
-        alert($aAlert['color'], $aAlert['text']);
+    if ( 
+      isset($_SESSION['alert-color']) && 
+      isset($_SESSION['alert-text']) &&
+      ! empty($_SESSION['alert-color']) &&
+      ! empty($_SESSION['alert-text']) 
+      ) {
+
+      $sReturn .= alert($_SESSION['alert-color'], $_SESSION['alert-text']);
+
+      unset( $_SESSION['alert-color'] );
+      unset( $_SESSION['alert-text'] );
     }
 
     $sReturn .= getLoginContent();
@@ -29,13 +37,13 @@ function getLoginContent()
 {
 
     $sReturn = <<<'EOD'
-      <div class="row mt-5 mb-3">
+      <div class="row mt-2 mb-3">
         <div class="col"></div>
-        <div class="col-6"><h1>Please sign in</h1></div>
+        <div class="col-6"><h1>Connexion</h1></div>
         <div class="col"></div>        
       </div>
 
-      <form action="index.php" method="post">
+      <form action="/login" method="post">
       <div class="row mt-5 mb-3">
         <div class="col"></div>
         <div class="col-6">    
@@ -56,7 +64,7 @@ function getLoginContent()
       <div class="row mt-5 mb-3">
         <div class="col"></div>
         <div class="col-6">
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button type="submit" class="btn btn-primary">Connecter</button>
         </div>
         <div class="col"></div>        
       </div>

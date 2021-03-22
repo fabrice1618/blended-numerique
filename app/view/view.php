@@ -3,7 +3,7 @@
 function alert($sAlertColor, $sAlertText)
 {
     $sAlert = <<<'EOD'
-    <div class="row mt-5 mb-3">
+    <div class="row mt-3">
     <div class="col"></div>
     <div class="col-10 alert %s" role="alert">%s</div>
     <div class="col"></div>        
@@ -21,7 +21,7 @@ function navbar( $aMenus = null )
     $sReturn1 = <<<'EOD'
     <nav class="navbar navbar-expand-lg navbar-light bg-light my-2">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Top-Security</a>
+      <a class="navbar-brand" href="/">Blended</a>
 
       <ul class="nav justify-content-end">
 EOD;
@@ -90,7 +90,7 @@ function headHtml( $sTitle = '', $aSupplement = null )
 EOD;
 
     $sTitleHtml = sprintf(
-        "    <title>Top-Security%s</title>",
+        "    <title>Blended%s</title>",
         empty($sTitle) ? '': ' - ' . $sTitle
     );
 

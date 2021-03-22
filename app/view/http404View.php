@@ -1,7 +1,7 @@
 <?php
-require_once("view.php");
+require_once("view/view.php");
 
-function err404View($aMenus)
+function http404View($aMenus)
 {
     $sReturn = startHtml();
 
@@ -9,13 +9,13 @@ function err404View($aMenus)
       '404 Page not found', [
         '<link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">',
         '<link href="https://fonts.googleapis.com/css?family=Montserrat:900" rel="stylesheet">',
-        '<link type="text/css" rel="stylesheet" href="css/error.css" />'
+        '<link type="text/css" rel="stylesheet" href="/css/error.css" />'
         ] );
 
     $sReturn .= startBody();
     $sReturn .= navbar( $aMenus );
 
-    $sReturn .= getErr404Content();
+    $sReturn .= getHttp404Content();
 
     $sReturn .= endBody();
     $sReturn .= endHtml();
@@ -23,7 +23,7 @@ function err404View($aMenus)
     return($sReturn);
 }
 
-function getErr404Content()
+function getHttp404Content()
 {
 
     $sReturn = <<<'EOD'

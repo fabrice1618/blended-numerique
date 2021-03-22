@@ -1,5 +1,5 @@
 <?php 
-require_once("messagesModel.php");
+require_once("../model/messagesModel.php");
 
 $aMessages = indexMessages();
 foreach ($aMessages as $aMessage) {

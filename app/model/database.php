@@ -1,5 +1,5 @@
 <?php 
-require_once("configModel.php");
+require_once("model/configModel.php");
 
 function openDatabase()
 {

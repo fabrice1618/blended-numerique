@@ -1,8 +1,8 @@
-DROP DATABASE topsecurity;
+DROP DATABASE blended;
 
-REVOKE ALL PRIVILEGES ON topsecurity.* FROM dba;
-REVOKE ALL PRIVILEGES ON topsecurity.* FROM topsecurity;
+REVOKE ALL PRIVILEGES ON blended.* FROM dba;
+REVOKE ALL PRIVILEGES ON blended.* FROM blended;
 
 DROP USER 'dba'@'localhost';
-DROP USER 'topsecurity'@'localhost';
-DROP USER 'topsecurity'@'%';
+DROP USER 'blended'@'localhost';
+DROP USER 'blended'@'%';

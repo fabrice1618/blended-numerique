@@ -35,7 +35,7 @@ if ( isset($_SESSION['utilisateur_id']) && $_SESSION['utilisateur_id'] > 0 ) {
       $bErreur401 = true;
     } else {
       $_SESSION['utilisateur_id'] = $auth;
-      header("Location:home.php");
+      header("Location:contact.php");
     }
   }
 }
