@@ -19,14 +19,14 @@ CREATE TABLE IF NOT EXISTS contacts(
 CREATE TABLE IF NOT EXISTS formations(
    formation_id int(11) NOT NULL AUTO_INCREMENT,
    formation VARCHAR(250) NOT NULL,
-   form_active varchar(6) NOT NULL,
+   form_active varchar(8) NOT NULL,
    CONSTRAINT PK_formations PRIMARY KEY(formation_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS motifs(
    motif_id int(11) NOT NULL AUTO_INCREMENT,
    motif VARCHAR(250) NOT NULL,
-   motif_active varchar(6) NOT NULL,
+   motif_active varchar(8) NOT NULL,
    CONSTRAINT PK_motifs PRIMARY KEY(motif_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
