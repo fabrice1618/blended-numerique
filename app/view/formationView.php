@@ -33,7 +33,7 @@ function getFormationContent()
 {
 
     $sReturn = <<<'EOD'
-    <div class="row mt-5 mb-3">
+    <div class="row mt-2 mb-3">
       <div class="col"></div>
       <div class="col-6">
         <h1>Formations</h1>

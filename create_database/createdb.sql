@@ -58,15 +58,15 @@ PRIMARY KEY (`message_id`)
 CREATE TABLE IF NOT EXISTS `utilisateurs` (
     `utilisateur_id` int(11) NOT NULL AUTO_INCREMENT,
     `usr_email` varchar(250) NOT NULL,
-    `usr_pwd` varchar(250) NOT NULL,
-    `usr_nom` varchar(250) NOT NULL,
-    `usr_prenom` varchar(250) NOT NULL,
-    `usr_type` varchar(5) NOT NULL,
-    `usr_active` varchar(6) NOT NULL,
+    `usr_pwd` varchar(250),
+    `usr_nom` varchar(250),
+    `usr_prenom` varchar(250),
+    `usr_type` varchar(5),
+    `usr_active` varchar(8),
 PRIMARY KEY (`utilisateur_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
- CREATE UNIQUE INDEX u_usr_email ON utilisateurs (usr_email);
+CREATE UNIQUE INDEX u_usr_email ON utilisateurs (usr_email);
  
 SELECT "Insertion de données" FROM dual;
 INSERT INTO messages(`email_to`, `sujet`, `message`) VALUES("fabrice1618@gmail.com", 'blended started', 'application blended started');

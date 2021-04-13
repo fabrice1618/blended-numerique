@@ -1,16 +1,13 @@
 <?php
-require_once("view/view.php");
 
 function lostpasswordView()
 {
-  global $aMenu;
-
     $sReturn = startHtml();
 
     $sReturn .= headHtml( 'lost password form' );
 
     $sReturn .= startBody();
-    $sReturn .= navbar( $aMenu );
+    $sReturn .= navbar();
 
     $sReturn .= getLostpasswordContent();
 
@@ -24,7 +21,7 @@ function getLostpasswordContent()
 {
 
     $sReturn = <<<'EOD'
-    <div class="row mt-5 mb-3">
+    <div class="row mt-2 mb-3">
       <div class="col"></div>
       <div class="col-6">
         <h1>Mot de passe oublié</h1>
@@ -32,7 +29,7 @@ function getLostpasswordContent()
       <div class="col"></div>
     </div>
 
-    <form action="/login/lostpassword" method="post">
+    <form action="/user/lostpassword" method="post">
       
       <div class="row mt-5 mb-3">
         <div class="col"></div>

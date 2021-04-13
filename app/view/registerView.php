@@ -1,16 +1,13 @@
 <?php
-require_once("view/view.php");
 
 function registerView()
 {
-  global $aMenu;
-
     $sReturn = startHtml();
 
     $sReturn .= headHtml( 'register form' );
 
     $sReturn .= startBody();
-    $sReturn .= navbar( $aMenu );
+    $sReturn .= navbar();
 
     $sReturn .= getRegisterContent();
 
@@ -24,7 +21,7 @@ function getRegisterContent()
 {
 
     $sReturn = <<<'EOD'
-    <div class="row mt-5 mb-3">
+    <div class="row mt-2 mb-3">
       <div class="col"></div>
       <div class="col-6">
         <h1>Inscription</h1>
@@ -32,7 +29,7 @@ function getRegisterContent()
       <div class="col"></div>
     </div>
 
-    <form action="/login/register" method="post">
+    <form action="/user/register" method="post">
       <div class="row mt-5 mb-3">
         <div class="col"></div>
         <div class="col-6">

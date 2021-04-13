@@ -4,3 +4,4 @@ webserver/db_time.json
 webserver/config.json
 create_database/.bash_history
 create_database/.mysql_history
+app/config.json

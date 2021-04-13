@@ -1,8 +1,11 @@
 <?php 
-require_once("../model/messagesModel.php");
+require_once("../autoload.php");
 
-$aMessages = indexMessages();
-foreach ($aMessages as $aMessage) {
+$sBasepath = '../';
+
+$oMessages = new MessagesModel();
+
+foreach ($oMessages->index() as $aMessage) {
     // Valeurs par defaut
     $aHeaders = array(
         'From' => 'webmaster@top-security.mips.science',

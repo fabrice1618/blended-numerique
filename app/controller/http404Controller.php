@@ -1,10 +1,8 @@
 <?php 
-require_once("controller/controller.php");
-require_once("view/http404View.php");
 
-function http404Controller($sControllerAction)
+function runController( $aParams )
 {
-  global $aMenu;
+  loadView( 'http404' );
+  setExitView( http404View() );
 
-  print( http404View($aMenu) );
 }

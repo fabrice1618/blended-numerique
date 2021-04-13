@@ -1,19 +1,17 @@
 <?php 
-require_once("controller/controller.php");
-require_once("view/contactView.php");
 
-function contactController($sControllerAction)
+function runController( $aParams )
 {
-  global $aMenu;
-  global $nUtilisateurId;
-
-  if ( $nUtilisateurId == 0 ) {
+  
+  $oSession = Session::getInstance();
+  
+  if ( ! $oSession->connecte() ) {
     http_response_code(401);
-    $_SESSION['alert-color'] = 'alert-danger';
-    $_SESSION['alert-text'] = 'HTTP 401 Unauthorized - Accès restreint';
-    header("Location:/login");
-    exit(0);
+    Session::alertError('HTTP 401 Unauthorized - Accès restreint');
+    setExitRedirect('/user/login');
   }
   
-  print( contactView($aMenu) );
+  loadView( 'contact' );
+  setExitView( contactView() );
+
 }

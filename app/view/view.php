@@ -15,7 +15,7 @@ EOD;
     return($sReturn);
 }
 
-function navbar( $aMenus = null )
+function navbar()
 {
 
     $sReturn1 = <<<'EOD'
@@ -26,23 +26,23 @@ function navbar( $aMenus = null )
       <ul class="nav justify-content-end">
 EOD;
 
-    $sMenuOption = <<<'EOD'
+    $sMenuOptionTemplate = <<<'EOD'
     <li class="nav-item %s">
       <a class="nav-link" href="%s">%s</a>
     </li>
 EOD;
 
+    $oSession = Session::getInstance();
+
     $sMenu = '';
-    if ( ! is_null($aMenus) ) {
-        foreach ($aMenus as $aMenu) {
-            $sMenu = $sMenu .
-                sprintf(
-                $sMenuOption, 
+    if ( ! is_null($oSession->menu) ) {
+        foreach ($oSession->menu as $aMenu) {
+            $sMenu .= sprintf(
+                $sMenuOptionTemplate, 
                 $aMenu['active'] ? 'active': '',
                 $aMenu['href'],
                 $aMenu['text']
-                ) .
-                PHP_EOL;
+                ) . PHP_EOL;
         }
     }
 

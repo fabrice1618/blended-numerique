@@ -1,7 +1,6 @@
 <?php
-require_once("view/view.php");
 
-function http404View($aMenus)
+function http404View()
 {
     $sReturn = startHtml();
 
@@ -13,7 +12,7 @@ function http404View($aMenus)
         ] );
 
     $sReturn .= startBody();
-    $sReturn .= navbar( $aMenus );
+    $sReturn .= navbar();
 
     $sReturn .= getHttp404Content();
 

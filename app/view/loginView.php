@@ -1,16 +1,13 @@
 <?php
-require_once("view/view.php");
 
 function loginView()
 {
-  global $aMenu;
-
     $sReturn = startHtml();
 
     $sReturn .= headHtml( 'login form' );
 
     $sReturn .= startBody();
-    $sReturn .= navbar( $aMenu );
+    $sReturn .= navbar();
 
     if ( 
       isset($_SESSION['alert-color']) && 
@@ -43,7 +40,7 @@ function getLoginContent()
         <div class="col"></div>        
       </div>
 
-      <form action="/login" method="post">
+      <form action="/user/login" method="post">
       <div class="row mt-5 mb-3">
         <div class="col"></div>
         <div class="col-6">    

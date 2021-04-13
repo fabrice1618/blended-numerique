@@ -1,16 +1,13 @@
 <?php
-require_once("view/view.php");
 
 function profileView($aUtilisateur)
 {
-  global $aMenu;
-
     $sReturn = startHtml();
 
     $sReturn .= headHtml( 'Profil' );
 
     $sReturn .= startBody();
-    $sReturn .= navbar( $aMenu );
+    $sReturn .= navbar();
 
     if ( 
       isset($_SESSION['alert-color']) && 
@@ -37,7 +34,7 @@ function getProfileContent($aUtilisateur)
 {
 
     $sFormTemplate = <<<'EOD'
-    <div class="row mt-5 mb-3">
+    <div class="row mt-2 mb-3">
       <div class="col"></div>
       <div class="col-6">
         <h1>Profil</h1>
@@ -45,7 +42,7 @@ function getProfileContent($aUtilisateur)
       <div class="col"></div>
     </div>
 
-    <form action="/login/profile" method="post">
+    <form action="/user/profile" method="post">
 
       <div class="row mt-5 mb-3">
         <div class="col"></div>
