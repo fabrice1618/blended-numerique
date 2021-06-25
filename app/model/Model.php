@@ -9,7 +9,7 @@ class Model
     protected $data = [];
     protected $table_name = null;
 
-    public function updateWhere(  $aFields = null, $aWhere = null  )
+    public function updateWhere( $aFields = null, $aWhere = null )
     {
 
         $oQuery = new QueryPrepare( $this->table_name, $this->table_definition );

@@ -27,7 +27,7 @@ spl_autoload_register( function ($sClassname) {
         }
     }
     if (! $lLoaded) {
-        throw new \Exception("Autoload:( Unable to load class " . $sClassname, 1);
+        throw new \Exception("Autoload: Unable to load class " . $sClassname, 1);
     }
 } 
 );

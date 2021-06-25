@@ -7,7 +7,7 @@ class ConfigJson
 
     private $filename;
 
-    public function __construct( private $sFileName ) 
+    public function __construct( $sFileName ) 
     {
         $this->filename = $sFileName;
 
