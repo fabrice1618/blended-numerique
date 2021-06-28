@@ -13,7 +13,7 @@ delete:
 
 function runController( $aParams )
 {
-    $sAction = $aParams[0] ?? 'list';
+    $sAction = $aParams[0] ?? 'index';
     $oSession = Session::getInstance();
 
     if ( ! $oSession->connecte() || ! $oSession->autorisation('admin') ) {

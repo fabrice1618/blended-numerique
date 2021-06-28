@@ -1,69 +1,97 @@
 <?php 
-/* Modèle formations v1 - Sans gestion des erreurs et avec faille de sécurité !!!
-*/
 
-
-class FormationModel
+class FormationModel extends Model
 {
+    const LISTE_CHAMPS = [
+        'formation_id' => [ 
+            'valid' => 'Valid::checkId',
+            'default' => 0,
+            'pdo_type' => PDO::PARAM_INT
+        ],
+        'formation' => [ 
+            'valid' => 'Valid::checkStr',
+            'default' => "",
+            'pdo_type' => PDO::PARAM_STR
+       ],
+        'form_active' => [ 
+            'valid' => 'FormationModel::checkFormActive',
+            'default' => 'inactive',
+            'pdo_type' => PDO::PARAM_STR
+            ]       
+    ];    
 
-    private $dbh;
+    const FORM_ACTIVE = [ 'active', 'inactive'];
 
-    protected $data = [];
+    const QUERY_CREATE = "  INSERT INTO formations (formation, form_active) 
+                            VALUES (':formation', ':form_active')";
 
-    
+    const QUERY_READ = "SELECT * FROM formations WHERE formation_id = :formation_id"; 
+
+    const QUERY_UPDATE = "UPDATE formations 
+                        SET formation = ':formation', 
+                            form_active = ':form_active'
+                        WHERE formation_id = ':formation_id'";
+
+    const QUERY_DELETE = "DELETE FROM formations WHERE formation_id = :formation_id"; 
+
+    const QUERY_INDEX = "SELECT * FROM formations";
 
     public function __construct( )
     {
-        $this->dbh = Database::connexion();
-
-        $this->data['formation_id'] = null;
-        $this->data['formation'] = '';
-        $this->data['form_active'] = false;
-
+        parent::__construct( self::LISTE_CHAMPS );
     }
 
+    // Create - creation nouvelle formation
+    public function create() 
+    {
+        $nId = 0;
+
+        $stmt = $this->dbh->prepare( self::QUERY_CREATE );
+        if (
+            $stmt !== false &&
+            $stmt->bindValue(':formation', $this->formation, PDO::PARAM_STR) &&
+            $stmt->bindValue(':form_active', $this->form_active, PDO::PARAM_STR) &&
+            $stmt->execute()
+        ) {
+            $nId = intVal( $this->dbh->lastInsertId() );            
+        }
+
+        return( $nId );
+    }
 
     // Read - lecture d'une formation
     function read( $formation_id ) 
     {
-        
-        if ( Valid::checkId( $formation_id ) ) {
-            $sRequete = "SELECT * 
-                    FROM formations 
-                    WHERE formation_id = $formation_id"; 
-            $stmt = $this->dbh->query( $sRequete, PDO::FETCH_ASSOC );
-            $aFormation = $stmt->fetch();   // recuperer un seul enregistrement
+        if ( $this->validate('formation_id', $formation_id) ) {
+            $stmt = $this->dbh->prepare( self::QUERY_READ );
+            if (
+                $stmt !== false &&
+                $stmt->bindValue(':formation_id', $this->formation_id, PDO::PARAM_INT) &&
+                $stmt->execute()
+            ) {
+                $aFormation = $stmt->fetch();   // recuperer un seul enregistrement
 
-            $this->formation_id = $formation_id;
-            $this->formation = $aFormation['formation'];
-            $this->form_active = $aFormation['form_active'];
+                $this->formation_id = $aFormation['formation_id'];
+                $this->formation = $aFormation['formation'];
+                $this->form_active = $aFormation['form_active'];    
+            }
         }
-
     }
-    
 
     // Update - modification d'une formation
     public function update() 
     {
-            
-        $sRequete = "UPDATE formations 
-                     SET formation = ':formation', 
-                         form_active = ':form_active'
-                     WHERE formation_id = ':formation_id'";
+        $stmt = $this->dbh->prepare( self::QUERY_UPDATE );
 
-
-        $stmt1 = $this->dbh->prepare( $sRequete );
-
-        $stmt1->bindValue(':formation_id', intval($this->formation_id), PDO::PARAM_INT);
-        $stmt1->bindValue(':formation', $this->formation, PDO::PARAM_STR);
-        $stmt1->bindValue(':form_active', $this->form_active, PDO::PARAM_STR);
-
-            if ( $stmt1->execute() ) {
-//                echo "Update réussi\n";
-                
-                return(true);
-            }
-                                
+        if (
+            $stmt !== false &&
+            $stmt->bindValue(':formation_id', $this->formation_id, PDO::PARAM_INT) &&
+            $stmt->bindValue(':formation', $this->formation, PDO::PARAM_STR) &&
+            $stmt->bindValue(':form_active', $this->form_active, PDO::PARAM_STR) &&
+            $stmt->execute()
+        ) {
+            return(true);
+        }
 
         return(false);
     }
@@ -71,12 +99,15 @@ class FormationModel
     // Delete - effacement d'une formation
     public function delete( $formation_id ) 
     {
-
-        if ( Valid::checkId( $formation_id ) ) {
-            $sRequete = "DELETE FROM formations 
-                        WHERE formation_id = $formation_id";        // ACHTUNG SQLI
-            $this->dbh->query( $sRequete );
-            return(true);
+        if ( $this->validate('formation_id', $formation_id) ) {
+            $stmt = $this->dbh->prepare( self::QUERY_DELETE );
+            if (
+                $stmt !== false &&
+                $stmt->bindValue(':formation_id', $this->formation_id, PDO::PARAM_INT) &&
+                $stmt->execute()
+            ) {
+                return(true);
+            }
         }
 
         return(false);
@@ -85,75 +116,24 @@ class FormationModel
     // Liste de toutes les formations
     public function index() 
     {
+        $aFormations = array();
 
-        $sRequete = "SELECT * FROM formations";
-
-        $stmt = $this->dbh->query( $sRequete, PDO::FETCH_ASSOC );
-        $aFormations = $stmt->fetchAll();   // Récupération de toutes les lignes
+        $stmt = $this->dbh->prepare( self::QUERY_INDEX );
+        if ( $stmt !== false && $stmt->execute() ) {
+            $aFormations = $stmt->fetchAll();   // recuperer un seul enregistrement
+        }
 
         return( $aFormations );
     }
-        
 
-
-
-    public function __get($sName)
+    public static function checkFormActive($val)
     {
-        if (! array_key_exists($sName, $this->data )) {
-            throw new \Exception(__CLASS__.": undefined property $sName", 1);
-        }
-  
-        return($this->data[$sName]);
-    }
-  
-    public function __set( $name, $value )
-    {
-        if ( ! array_key_exists($name, $this->data) ) {
-            throw new Exception(__CLASS__.": Le champ $name n'existe pas dans l'objet", 1);
+
+        if ( ! is_string($val) || empty($val) || ! in_array($val, self::FORM_ACTIVE) ) {
+            throw new Exception("Erreur: parametre incorrect - type attendu: form_active");
         }
 
-        /*
-        if ( ! $this->validate( $name, $value ) ) {
-            throw new Exception(__CLASS__.": Erreur mise à jour champ $name avec $value. Valeur invalide", 1);    
-        }
-*/
-
-        $this->data[$name] =  $value;        
-    }
-
-
-    public function toArray()
-    {
-        return($this->data);
-    }
-
-    public function toString()
-    {
-        return(json_encode($this->data));
+        return(true);
     }
 
 }
-
-
-
-
-// Create - creation nouvelle formation
-function createFormations( $formation ) 
-{
-    global $bdd;
-
-    $nId = 0;
-
-    if ( checkStr( $formation, 2, 250 ) ) {
-        $sRequete = "INSERT INTO formations (formation) 
-                    VALUES ('$formation')";
-        $bdd->query( $sRequete );
-        $nId = intVal( $bdd->lastInsertId() );
-    }
-
-    return( $nId );
-}
-
-
-
-
